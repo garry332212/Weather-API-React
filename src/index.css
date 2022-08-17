@@ -1,13 +1,122 @@
-body {
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.container {
+  background-image: url("./assets/winter.jpg");
+  background-size: cover;
+  background-position: top;
+  transition: 0.4s ease-out;
+}
+
+.container.hot {
+  background-image: url("./assets/clouds.jpg");
+}
+
+main {
+  min-height: 100vh;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.9)
+  );
+  padding: 25px;
+}
+
+.searchArea {
+  width: 100%;
+  margin: 0 0 75px;
+}
+
+.searchArea .searchInput {
+  appearance: none;
+  background: none;
+  border: none;
+  outline: none;
+  display: flex;
+  width: 50%;
+  margin: auto;
+  padding: 1.2rem;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 0.3rem 0.3rem 3rem 1.3rem;
+  margin-top: 1.5rem;
+  box-shadow: 0px 5px rgba(0, 0, 0, 0.2);
+  color: rgb(40, 40, 119);
+  font-size: 2rem;
+  transition: 0.2s ease-out;
+}
+
+.searchArea .searchInput:focus {
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.locationArea .location {
+  color: #fff;
+  font-size: 7rem;
+  text-align: center;
+  text-shadow: 0.1rem 0.1rem rgba(50, 50, 70, 0.5);
+}
+
+.locationArea .currentDate {
+  color: #fff;
+  font-size: 1.8rem;
+  font-style: italic;
+  text-align: center;
+  text-shadow: 2px 2px rgba(50, 50, 70, 0.5);
+}
+
+.temperature {
+  text-align: center;
+}
+
+.temperature .currentTemp {
+  position: relative;
+  display: inline-block;
+  margin: 2rem auto;
+  background-color: rgba(156, 151, 151, 0.2);
+  border-radius: 16px;
+  padding: 2rem 4rem;
+  color: rgb(205, 229, 243);
+  font-size: 10rem;
+  text-shadow: 0.3rem 0.6rem rgba(50, 50, 70, 0.5);
+  text-align: center;
+  box-shadow: 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.temperature .conditions {
+  color: #fff;
+  font-size: 6rem;
+  font-weight: 700;
+  text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
+  
+}
+
+@media (max-width: 950px) {
+  .searchArea .searchInput {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.5rem;
+    border-radius: 0.3rem 0.3rem 2rem 0.5rem;
+  }
+
+  .locationArea .currentDate {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .locationArea .location {
+    font-size: 2.7rem;
+  }
+
+  .temperature .conditions {
+    font-size: 3.5rem;
+    margin-top: 2rem;
+  }
+  .temperature .currentTemp {
+    font-size: 5rem;
+    padding: 0.4rem 3rem;
+    text-shadow: none;
+  }
 }
