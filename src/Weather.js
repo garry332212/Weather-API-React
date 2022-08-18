@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 
 const api = {
   apiKey: "0cc86d16bf572f78cdc96c096c7627e5",
@@ -9,25 +9,12 @@ function Weather() {
   //initializing the states
   const [fetchData, setFetchData] = useState(""); // for api query
   const [weatherData, setWeatherData] = useState(""); // for UI
+  const [invalidCity, setInvalidCity] = useState(true); //input validation
+  const [startMsg, setStartMsg] = useState(true); //input validation
 
   //handling user input
-
   const inputHandler = (event) => {
     setFetchData(event.target.value);
-  };
-
-
-  //FUNCTION TO FETCH THE API data (weather data from the given api)
-  const fetchApi = (event) => {
-    if (event.key === "Enter") {
-      fetch(`${api.apiEndpoint}weather?q=${fetchData}&units=metric&APPID=${api.apiKey}`)
-        .then((res) => res.json())
-        .then((result) => {
-          setWeatherData(result);
-          setFetchData("");
-        //   console.log(result);
-        });
-    }
   };
 
   // Date builder with month and day names as a string
@@ -63,6 +50,28 @@ function Weather() {
 
     return `${day} ${date} ${month} ${year}`;
   };
+
+  //FUNCTION TO FETCH THE API data- On Form Submit (weather data from the given api)
+  const fetchApi = async (event) => {
+    event.preventDefault();
+
+    if (fetchData.trim() === "") {
+      setInvalidCity(false);
+    } else {
+      setInvalidCity(true);
+      setStartMsg(false);
+      fetch(
+        `${api.apiEndpoint}weather?q=${fetchData}&units=metric&APPID=${api.apiKey}`
+      )
+        .then((res) => res.json())
+        .then((result) => {
+          setWeatherData(result);
+          setFetchData("");
+        });
+    }
+  };
+
+  const classChanger = invalidCity ? "searchInput" : "searchError";
   return (
     <div
       className={
@@ -74,16 +83,22 @@ function Weather() {
       }
     >
       <main>
-        <div className="searchArea">
-          <input
-            type="text"
-            className="searchInput"
-            placeholder="Enter City..."
-            onChange={inputHandler}
-            value={fetchData}
-            onKeyPress={fetchApi}
-          />
-        </div>
+        <form onSubmit={fetchApi}>
+          <div className="searchArea">
+            <input
+              type="text"
+              className={classChanger}
+              placeholder="Enter City..."
+              onChange={inputHandler}
+              value={fetchData}
+            />
+
+            {startMsg && (
+              <p className="welcome">Enter a City Name To Get The Weather</p>
+            )}
+            {!invalidCity && <p className="error">Please Enter a City Name</p>}
+          </div>
+        </form>
         {typeof weatherData.main != "undefined" ? (
           <div>
             <div className="locationArea">
@@ -102,6 +117,23 @@ function Weather() {
         ) : (
           ""
         )}
+
+        {weatherData.cod === "404" ? (
+          <p className="noResults">
+            {" "}
+            City Not Found!! Enter a Valid City Name eg.{" "}
+            <span style={{ color: "white", fontWeight: "bolder" }}>
+              {" "}
+              Auckland
+            </span>{" "}
+          </p>
+        ) : (
+          <></>
+        )}
+
+        <div className="footer">
+          <p>©Gurvinder Singh 2022</p>
+        </div>
       </main>
     </div>
   );

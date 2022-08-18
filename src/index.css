@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -30,7 +32,8 @@ main {
   margin: 0 0 75px;
 }
 
-.searchArea .searchInput {
+.searchArea .searchInput,
+.searchError {
   appearance: none;
   background: none;
   border: none;
@@ -48,8 +51,27 @@ main {
   transition: 0.2s ease-out;
 }
 
+.searchArea .searchError {
+  background-color: orangered;
+}
+
 .searchArea .searchInput:focus {
   background-color: rgba(255, 255, 255, 0.75);
+}
+
+.welcome {
+  text-align: center;
+  margin-top: 2rem;
+  color: whitesmoke;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+.error,
+.noResults {
+  text-align: center;
+  margin-top: 2rem;
+  color: rgb(243, 99, 99);
+  font-size: 2rem;
 }
 
 .locationArea .location {
@@ -90,7 +112,17 @@ main {
   font-size: 6rem;
   font-weight: 700;
   text-shadow: 3px 3px rgba(50, 50, 70, 0.5);
-  
+}
+
+.footer {
+  text-align: center;
+  margin-top: 3rem;
+  color: whitesmoke;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Caveat", cursive;
 }
 
 @media (max-width: 950px) {
